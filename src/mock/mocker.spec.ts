@@ -53,7 +53,7 @@ function createFixture () {
   }
 }
 
-test('Mocker restart without problem', async t => {
+test('Mocker restart without problem', async (t: any) => {
   const mocker = new MockerTest()
   mocker.use(SimpleEnvironment())
   const puppet = new PuppetDouyin({ mocker })
@@ -72,7 +72,7 @@ test('Mocker restart without problem', async t => {
   }
 })
 
-test('Mocker.scan()', async t => {
+test('Mocker.scan()', async (t: any) => {
   const {
     mocker,
     puppet,
@@ -97,7 +97,7 @@ test('Mocker.scan()', async t => {
   await puppet.stop()
 })
 
-test('Mocker.login()', async t => {
+test('Mocker.login()', async (t: any) => {
   const {
     user,
     mocker,

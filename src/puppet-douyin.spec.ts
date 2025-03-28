@@ -7,7 +7,7 @@ import { PuppetDouyin } from './puppet-douyin'
 class PuppetMockTest extends PuppetDouyin {
 }
 
-test('PuppetMock perfect restart testing', async (t) => {
+test('PuppetMock perfect restart testing', async (t: any) => {
   const puppet = new PuppetMockTest()
   try {
 

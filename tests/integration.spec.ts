@@ -12,7 +12,7 @@ import {
 async function * wechatyFixture () {
   const mocker  = new mock.Mocker()
   const puppet  = new PuppetDouyin({ mocker })
-  const wechaty = new Wechaty({ puppet })
+  const wechaty = new Wechaty({ puppet: puppet as any })
 
   try {
     await wechaty.start()
@@ -27,15 +27,15 @@ async function * wechatyFixture () {
   }
 }
 
-test('integration testing', async t => {
+test('integration testing', async (t: any) => {
   const mocker = new mock.Mocker()
   const puppet = new PuppetDouyin({ mocker })
-  const wechaty = new Wechaty({ puppet })
+  const wechaty = new Wechaty({ puppet: puppet as any })
 
   t.ok(wechaty, 'should instantiate wechaty with puppet mocker')
 })
 
-test('Contact.find() mocker.createContacts()', async t => {
+test('Contact.find() mocker.createContacts()', async (t: any) => {
   for await (const {
     mocker,
     wechaty,
@@ -53,7 +53,7 @@ test('Contact.find() mocker.createContacts()', async t => {
   }
 })
 
-test('Room.find() mocker.createRooms()', async t => {
+test('Room.find() mocker.createRooms()', async (t: any) => {
   for await (const {
     mocker,
     wechaty,
@@ -73,7 +73,7 @@ test('Room.find() mocker.createRooms()', async t => {
   }
 })
 
-test('Contact.load() mocker.createContact()', async t => {
+test('Contact.load() mocker.createContact()', async (t: any) => {
   for await (const {
     mocker,
     wechaty,

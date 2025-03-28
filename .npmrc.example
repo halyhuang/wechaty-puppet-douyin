@@ -1,0 +1,57 @@
+# Python 配置
+python=C:\Python311\python.exe
+
+# Visual Studio 配置
+msvs_version=2022
+target_arch=x64
+runtime=electron
+disturl=https://atom.io/download/electron
+
+# Electron 配置
+electron_version=28.1.0
+electron_mirror=https://npmmirror.com/mirrors/electron/
+electron_builder_binaries_mirror=https://npmmirror.com/mirrors/electron-builder-binaries/
+
+# npm 镜像源配置
+registry=https://registry.npmmirror.com
+
+# Node.js 版本要求
+engine-strict=true
+node-version=18.19.1
+
+# 包管理器设置
+prefer-npm=true
+save-exact=true
+
+# 日志设置
+loglevel=info
+
+# 缓存配置
+prefer-offline=true
+prefer-online=false
+
+# 环境变量配置
+DOUYIN_TOKEN=
+DOUYIN_APP_ID=
+DOUYIN_APP_SECRET=
+
+# Node 环境
+NODE_ENV=development
+
+# TypeScript 配置
+typescript=true
+ts-node=true
+
+# Git 配置
+git-checks=true
+
+# 编译配置
+msbuild_path=C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Current\Bin
+msbuild_arch=x64
+msbuild_configuration=Release
+
+# 设置 node-gyp 配置
+node-gyp-binary=C:\Program Files\nodejs\node-gyp.cmd
+target=28.1.0
+target_platform=win32
+target_libc=unknown 

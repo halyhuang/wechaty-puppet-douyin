@@ -11,7 +11,7 @@
     "wechaty": ">=0.17.46"
   },
   "scripts": {
-    "clean": "shx rm -fr dist/*",
+    "clean": "rimraf \"dist\"",
     "dist": "npm run clean && tsc",
     "pack": "npm pack",
     "start": "ts-node examples/ding-dong-bot.ts",
@@ -44,41 +44,53 @@
   },
   "homepage": "https://github.com/wechaty/wechaty-puppet-mock#readme",
   "devDependencies": {
-    "@chatie/eslint-config": "^0.8.1",
-    "@chatie/git-scripts": "^0.6.1",
-    "@chatie/semver": "^0.4.7",
-    "@chatie/tsconfig": "^0.8.0",
-    "@types/cuid": "^1.3.0",
-    "@types/faker": "^4.1.12",
-    "@types/normalize-package-data": "^2.4.0",
-    "@types/quick-lru": "^3.0.0",
-    "pkg-jq": "^0.2.4",
-    "shx": "^0.3.2",
-    "tstest": "^0.4.10",
-    "wechaty": "^0.45.2",
-    "wechaty-puppet": "^0.29.2"
+    "@chatie/eslint-config": "0.8.1",
+    "@chatie/semver": "0.4.7",
+    "@chatie/tsconfig": "0.8.0",
+    "@grpc/grpc-js": "1.9.13",
+    "@types/blue-tape": "0.1.36",
+    "@types/cuid": "1.3.0",
+    "@types/faker": "4.1.12",
+    "@types/node": "18.15.11",
+    "@types/normalize-package-data": "2.4.0",
+    "@types/quick-lru": "3.0.0",
+    "@types/sinon": "17.0.4",
+    "blue-tape": "1.0.0",
+    "electron": "22.3.0",
+    "markdownlint-cli": "0.44.0",
+    "node-gyp": "10.0.1",
+    "pkg-jq": "0.2.4",
+    "rimraf": "5.0.5",
+    "shelljs": "0.8.5",
+    "shx": "0.3.2",
+    "ts-node": "10.9.1",
+    "tstest": "0.4.10",
+    "typescript": "4.9.5",
+    "wechaty": "0.45.2",
+    "wechaty-puppet": "0.29.2"
   },
   "peerDependencies": {
     "wechaty-puppet": "*"
   },
   "dependencies": {
-    "brolog": "^1.8.3",
-    "cuid": "^2.1.8",
-    "faker": "^4.1.0",
-    "hot-import": "^0.2.14",
-    "normalize-package-data": "^2.5.0",
-    "quick-lru": "^5.1.0",
-    "state-switch": "^0.6.18",
-    "typed-emitter": "^1.2.0",
-    "watchdog": "^0.8.17"
+    "brolog": "1.8.3",
+    "cuid": "2.1.8",
+    "faker": "4.1.0",
+    "hot-import": "0.2.14",
+    "normalize-package-data": "2.5.0",
+    "quick-lru": "5.1.0",
+    "state-switch": "0.6.18",
+    "ts-node": "10.9.1",
+    "typed-emitter": "1.2.0",
+    "watchdog": "0.8.17"
   },
   "publishConfig": {
     "access": "public",
     "tag": "next"
   },
-  "git": {
-    "scripts": {
-      "pre-push": "npx git-scripts-pre-push"
-    }
+  "resolutions": {
+    "grpc": "npm:@grpc/grpc-js@^1.9.13",
+    "electron": "22.3.27",
+    "node-gyp": "10.0.1"
   }
 }
