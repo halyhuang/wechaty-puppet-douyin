@@ -72,7 +72,7 @@ npm install -g node-gyp
 
 3. **安装 Electron**
 ```powershell
-npm install electron@23.3.13 --save-dev
+npm install electron@22.3.27  --save-dev
 ```
 
 4. **安装 grpc 相关**
@@ -96,10 +96,10 @@ python=C:\Python311\python.exe
 msvs_version=2022
 
 # Electron 版本
-electron_version=23.3.13
+electron_version=23.3.0
 
 # node-gyp 配置
-target=23.3.13
+target=23.3.0
 runtime=electron
 disturl=https://npmmirror.com/mirrors/electron/
 target_arch=x64
@@ -111,7 +111,7 @@ build_from_source=true
 2. **环境变量设置**
 ```powershell
 $env:GYP_MSVS_VERSION = "2022"
-$env:npm_config_target = "23.3.13"
+$env:npm_config_target = "23.3.0"
 $env:npm_config_runtime = "electron"
 $env:npm_config_disturl = "https://npmmirror.com/mirrors/electron/"
 $env:npm_config_target_arch = "x64"
@@ -122,7 +122,7 @@ $env:npm_config_target_libc = "unknown"
 ## 注意事项
 
 1. **版本选择**
-   - 使用 Electron 23.3.13 而不是较低版本
+   - 使用 Electron 23.3.0 而不是较低版本
    - 使用 @grpc/grpc-js 替代原生 grpc 模块
    - 确保所有依赖版本兼容 Node.js 18
 

@@ -8,7 +8,8 @@
   "main": "dist/src/mod.js",
   "typings": "dist/src/mod.d.ts",
   "engines": {
-    "wechaty": ">=0.17.46"
+    "wechaty": ">=0.17.46",
+    "node": ">=16.0.0"
   },
   "scripts": {
     "clean": "rimraf \"dist\"",
@@ -47,7 +48,6 @@
     "@chatie/eslint-config": "0.8.1",
     "@chatie/semver": "0.4.7",
     "@chatie/tsconfig": "0.8.0",
-    "@grpc/grpc-js": "1.9.13",
     "@types/blue-tape": "0.1.36",
     "@types/cuid": "1.3.0",
     "@types/faker": "4.1.12",
@@ -56,9 +56,9 @@
     "@types/quick-lru": "3.0.0",
     "@types/sinon": "17.0.4",
     "blue-tape": "1.0.0",
-    "electron": "22.3.0",
+    "electron": "22.3.27",
     "markdownlint-cli": "0.44.0",
-    "node-gyp": "10.0.1",
+    "node-gyp": "11.0.0",
     "pkg-jq": "0.2.4",
     "rimraf": "5.0.5",
     "shelljs": "0.8.5",
@@ -73,6 +73,7 @@
     "wechaty-puppet": "*"
   },
   "dependencies": {
+    "@grpc/grpc-js": "1.9.13",
     "brolog": "1.8.3",
     "cuid": "2.1.8",
     "faker": "4.1.0",
@@ -89,8 +90,14 @@
     "tag": "next"
   },
   "resolutions": {
-    "grpc": "npm:@grpc/grpc-js@^1.9.13",
+    "@grpc/grpc-js": "1.9.13",
     "electron": "22.3.27",
-    "node-gyp": "10.0.1"
+    "node-gyp": "11.0.0"
+  },
+  "overrides": {
+    "grpc": "npm:@grpc/grpc-js@^1.9.13",
+    "@grpc/grpc-js": "1.9.13",
+    "electron": "22.3.27",
+    "node-gyp": "11.0.0"
   }
 }
