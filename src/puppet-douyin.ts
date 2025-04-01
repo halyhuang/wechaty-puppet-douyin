@@ -106,8 +106,13 @@ class PuppetDouyin extends Puppet {
     // client.setEncoding('binary');
     // 开始连接socket
     // 连接到服务端
-    this.client.connect(config.port, config.host, function () {
+    this.client.connect(config.port, config.host, () => {
       log.verbose('连接成功')
+      // 触发扫码事件
+      this.emit('scan', { 
+        qrcode: 'douyin://login?qrcode=test',
+        status: 0 
+      })
     })
     this.client.on('data',  (data: string) => {
       log.verbose('from server:' + data)

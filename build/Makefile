@@ -332,7 +332,7 @@ endif
 
 quiet_cmd_regen_makefile = ACTION Regenerating $@
 cmd_regen_makefile = cd $(srcdir); /Users/halyhuang/work/ai/happycode/wechaty-puppet-douyin/node_modules/node-gyp/gyp/gyp_main.py -fmake --ignore-environment "-Dlibrary=shared_library" "-Dvisibility=default" "-Dnode_root_dir=/Users/halyhuang/Library/Caches/node-gyp/16.20.2" "-Dnode_gyp_dir=/Users/halyhuang/work/ai/happycode/wechaty-puppet-douyin/node_modules/node-gyp" "-Dnode_lib_file=/Users/halyhuang/Library/Caches/node-gyp/16.20.2/<(target_arch)/node.lib" "-Dmodule_root_dir=/Users/halyhuang/work/ai/happycode/wechaty-puppet-douyin" "-Dnode_engine=v8" "--depth=." "-Goutput_dir=." "--generator-output=build" -I/Users/halyhuang/work/ai/happycode/wechaty-puppet-douyin/build/config.gypi -I/Users/halyhuang/work/ai/happycode/wechaty-puppet-douyin/node_modules/node-gyp/addon.gypi -I/Users/halyhuang/Library/Caches/node-gyp/16.20.2/include/node/common.gypi "--toplevel-dir=." binding.gyp
-Makefile: $(srcdir)/binding.gyp $(srcdir)/../../../../Library/Caches/node-gyp/16.20.2/include/node/common.gypi $(srcdir)/node_modules/node-gyp/addon.gypi $(srcdir)/build/config.gypi
+Makefile: $(srcdir)/binding.gyp $(srcdir)/build/config.gypi $(srcdir)/node_modules/node-gyp/addon.gypi $(srcdir)/../../../../Library/Caches/node-gyp/16.20.2/include/node/common.gypi
 	$(call do_cmd,regen_makefile)
 
 # "all" is a concatenation of the "all" targets from all the included

@@ -8,7 +8,7 @@ export function qrCodeForChatie (): FileBox {
   return FileBox.fromQRCode(CHATIE_OFFICIAL_ACCOUNT_QRCODE)
 }
 export const config = {
-  host: '192.168.31.50',
+  host: '192.168.199.170',
   port: 3000,
 }
 export { VERSION } from './version'
