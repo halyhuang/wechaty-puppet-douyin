@@ -1,4 +1,3 @@
-
 /**
  *   Wechaty - https://github.com/chatie/wechaty
  *
@@ -20,36 +19,32 @@
 import {
   EventLogoutPayload,
   EventLoginPayload,
-  EventScanPayload,
   EventErrorPayload,
   EventMessagePayload,
 }                         from 'wechaty-puppet'
 
 import { PuppetDouyin } from '../src/mod'
+import { config } from '../src/config'
 
 /**
- *
- * 1. Declare your Bot!
- *
+ * 1. 创建机器人实例
  */
-const puppet = new PuppetDouyin()
+const puppet = new PuppetDouyin({
+  host: config.host,
+  port: config.port,
+})
 
 /**
- *
- * 2. Register event handlers for Bot
- *
+ * 2. 注册事件处理
  */
 puppet
-  .on('logout', onLogout)
   .on('login',  onLogin)
-  .on('scan',   onScan)
+  .on('logout', onLogout)
   .on('error',  onError)
   .on('message', onMessage)
 
 /**
- *
- * 3. Start the bot!
- *
+ * 3. 启动机器人
  */
 puppet.start()
   .catch(async e => {
@@ -59,76 +54,125 @@ puppet.start()
   })
 
 /**
- *
- * 4. You are all set. ;-]
- *
+ * 4. 事件处理函数
  */
-
-/**
- *
- * 5. Define Event Handler Functions for:
- *  `scan`, `login`, `logout`, `error`, and `message`
- *
- */
-function onScan (payload: EventScanPayload) {
-  if (payload.qrcode) {
-    // Generate a QR Code online via
-    // http://goqr.me/api/doc/create-qr-code/
-    const qrcodeImageUrl = [
-      'https://api.qrserver.com/v1/create-qr-code/?data=',
-      encodeURIComponent(payload.qrcode),
-    ].join('')
-    console.info(`[${payload.status}] ${qrcodeImageUrl}\nScan QR Code above to log in: `)
-  } else {
-    console.info(`[${payload.status}]`)
-  }
-}
-
 function onLogin (payload: EventLoginPayload) {
-  console.info(`${payload.contactId} login`)
-  puppet.messageSendText(payload.contactId, 'Wechaty login').catch(console.error)
+  console.info(`${payload.contactId} 已连接`)
 }
 
 function onLogout (payload: EventLogoutPayload) {
-  console.info(`${payload.contactId} logouted`)
+  console.info(`${payload.contactId} 已断开`)
 }
 
 function onError (payload: EventErrorPayload) {
   console.error('Bot error:', payload.data)
-  /*
-  if (bot.logonoff()) {
-    bot.say('Wechaty error: ' + e.message).catch(console.error)
-  }
-  */
 }
 
 /**
- *
- * 6. The most important handler is for:
- *    dealing with Messages.
- *
+ * 5. 消息处理
  */
 async function onMessage (payload: EventMessagePayload) {
-  const msgPayload = await puppet.messagePayload(payload.messageId)
+  try {
+    console.info('步骤1: 收到消息事件:', JSON.stringify(payload, null, 2));
+    
+    // 检查消息ID
+    if (!payload.messageId) {
+      console.error('步骤1失败: 消息ID为空，完整payload:', JSON.stringify(payload, null, 2));
+      return;
+    }
+    console.info('步骤1成功: 消息ID有效');
 
-  if (msgPayload.text === 'ding') {
-    console.info('ding found')
-    await puppet.messageSendText('bot', 'dong\r\n')
-  } else {
-    console.info('no ding found')
-    await puppet.messageSendText('bot', 'ding Please\r\n')
+    // 获取消息内容
+    try {
+      console.info('步骤2: 开始获取消息内容');
+      const msgPayload = await puppet.messagePayload(payload.messageId);
+      console.info('步骤2成功: 消息内容:', JSON.stringify(msgPayload, null, 2));
+
+      // 检查消息内容
+      if (!msgPayload || !msgPayload.text) {
+        console.error('步骤2失败: 无效的消息内容，完整payload:', JSON.stringify(msgPayload, null, 2));
+        return;
+      }
+      console.info('步骤2成功: 消息内容有效');
+
+      const messageText = msgPayload.text.trim().toLowerCase();
+      console.info('步骤3: 处理消息:', messageText);
+
+      // 处理 ding 消息
+      if (messageText === 'ding') {
+        console.info('步骤4: 收到 ding 消息，准备回复 dong');
+        try {
+          // 获取发送者ID
+          const senderId = msgPayload.fromId;
+          console.info('步骤4.1: 发送者ID:', senderId);
+          
+          // 检查发送者ID是否有效
+          if (!senderId) {
+            console.error('步骤4.1失败: 发送者ID无效，无法发送消息');
+            return;
+          }
+          console.info('步骤4.1成功: 发送者ID有效');
+          
+          // 发送消息
+          console.info('步骤4.2: 开始发送 dong 消息');
+          await puppet.messageSendText(senderId, 'dong');
+          console.info('步骤4.2成功: 已发送 dong 消息');
+          
+          // 验证消息是否发送成功
+          console.info('步骤4.3: 开始验证消息发送结果');
+          const sentMsg = await puppet.messagePayload(payload.messageId);
+          if (sentMsg && sentMsg.text === 'dong') {
+            console.info('步骤4.3成功: 消息发送成功，已确认');
+          } else {
+            console.error('步骤4.3失败: 消息发送可能失败，未找到发送的消息');
+          }
+        } catch (e) {
+          console.error('步骤4失败: 发送 dong 消息失败:', e);
+          if (e instanceof Error) {
+            console.error('错误堆栈:', e.stack);
+          }
+        }
+      } else {
+        console.info('步骤3: 收到其他消息:', messageText);
+      }
+    } catch (e) {
+      console.error('步骤2失败: 获取消息内容失败:', e);
+      if (e instanceof Error) {
+        console.error('错误堆栈:', e.stack);
+      }
+    }
+  } catch (e) {
+    console.error('步骤1失败: 处理消息错误:', e);
+    if (e instanceof Error) {
+      console.error('错误堆栈:', e.stack);
+    }
   }
-
-  console.info(JSON.stringify(msgPayload))
 }
 
 /**
- *
- * 7. Output the Welcome Message
- *
+ * 6. 启动信息
  */
-const welcome = `
-Puppet Version: ${puppet.version()}
-Please wait... I'm trying to login in...
-`
-console.info(welcome)
+console.info(`
+启动 Douyin Bot...
+版本: ${puppet.version()}
+配置: 
+${JSON.stringify({
+  host: (puppet as any).options.host || '默认',
+  port: (puppet as any).options.port || '默认'
+}, null, 2)}
+`)
+
+// 添加错误处理
+process.on('uncaughtException', (err) => {
+  console.error('未捕获的异常:', err);
+  if (err instanceof Error) {
+    console.error('错误堆栈:', err.stack);
+  }
+});
+
+process.on('unhandledRejection', (reason) => {
+  console.error('未处理的 Promise 拒绝:', reason);
+  if (reason instanceof Error) {
+    console.error('错误堆栈:', reason.stack);
+  }
+});

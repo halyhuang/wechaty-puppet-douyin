@@ -60,6 +60,8 @@ import {
 
 export type PuppetMockOptions = PuppetOptions & {
   mocker?: Mocker,
+  host?: string,
+  port?: number,
 }
 const net = require('net')
 
@@ -106,7 +108,9 @@ class PuppetDouyin extends Puppet {
     // client.setEncoding('binary');
     // 开始连接socket
     // 连接到服务端
-    this.client.connect(config.port, config.host, () => {
+    const host = this.options.host || config.host
+    const port = this.options.port || config.port
+    this.client.connect(port, host, () => {
       log.verbose('连接成功')
       // 触发扫码事件
       this.emit('scan', { 
